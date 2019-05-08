@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{medium}{RGB}{0,171,108}
+\hypersetup{
+    colorlinks=true, linkcolor=medium,
+    filecolor=magenta, urlcolor=cyan,
+    pdftitle={Notes}, bookmarks=true,
+    pdfauthor={Medet Can Akuş}
+}
+\urlstyle{same}
+\title{Notes}
+\author{Medet Can Akuş}
+\date{\today}
+
+\begin{document}
+\tableofcontents
+\maketitle
+\section{Notes}
+ \begin{itemize}
+    \item By default all rust crates link to standard library, which depends on the operating system for features such as \
+    threads, scheduling, file, or networking. It also include \hyperlink{ref:libc}{libc} library. 
+    \item We can disable inclusion of standard library in rust through the \hyperlink{ref:attribute}{no\_std} attribute.
+    \item Cargo.toml file in a rust project contains project configurations such as dependencies, author, version etc...
+    \item Panic handler function is part of the standard library and it defines the function that the compiler should invoke when \hyperlink{ref:panic}{panic} occurs. Panic handler is a divergent function.
+    \item Rust has a special syntax for \hyperlink{ref:diverging-function}{diverging functions} which are functions that do not return;
+    \item \hyperlink{ref:language-item}{Language items} are special functions and types that are internally required by compiler.
+    \item When you run a rust application first thing that gets executed is not your main function, it is a function that named start.
+    The reason for that because \hyperlink{ref:runtime-environment}{runtime environment} needs be set up and exists before your main application. This environment creates the stack places the right arguments 
+    on to the register.
+ \end{itemize}
+ \section{References}
+ \begin{itemize}
+    \item \hypertarget{ref:libc}{\textbf{\color{medium}{libc}}}
+    \begin{itemize}
+        \item \url{https://www.gnu.org/software/libc/}
+    \end{itemize}
+    \item \hypertarget{ref:attribute}{\textbf{\color{medium}{attribute}}}
+    \begin{itemize}
+        \item \url{https://doc.rust-lang.org/rust-by-example/attribute.html}
+    \end{itemize}
+    \item \hypertarget{ref:panic}{\textbf{\color{medium}{panic}}}
+    \begin{itemize}
+        \item \url{https://doc.rust-lang.org/stable/book/ch09-01-unrecoverable-errors-with-panic.html}
+    \end{itemize}
+    \item \hypertarget{ref:diverging-function}{\textbf{\color{medium}{Diverging Function}}}
+    \begin{itemize}
+        \item \url{https://doc.rust-lang.org/1.30.0/book/first-edition/functions.html#diverging-functions}
+    \end{itemize}
+    \item \hypertarget{ref:language-item}{\textbf{\color{medium}{Language Items}}}
+    \begin{itemize}
+        \item \url{https://manishearth.github.io/blog/2017/01/11/rust-tidbits-what-is-a-lang-item/}
+        \item \url{https://doc.rust-lang.org/1.5.0/reference.html#language-items}
+        \item \url{https://doc.rust-lang.org/1.5.0/book/lang-items.html}
+    \end{itemize}
+    \item \hypertarget{ref:runtime-environment}{\textbf{\color{medium}{Runtime Environment}}}
+    \begin{itemize}
+        \item \url{https://en.wikipedia.org/wiki/Runtime_system}
+    \end{itemize}
+    \item \hypertarget{ref:non}{\textbf{\color{medium}{ABI}}}
+    \begin{itemize}
+        \item \url{https://en.wikipedia.org/wiki/Application_binary_interface}
+    \end{itemize}
+    \item \hypertarget{ref:non}{\textbf{\color{medium}{Cross Compiler}}}
+    \begin{itemize}
+        \item \url{https://en.wikipedia.org/wiki/Cross_compiler}
+    \end{itemize}
+ \end{itemize}
+\end{document}
