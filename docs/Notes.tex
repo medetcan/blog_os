@@ -1,6 +1,8 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
+\usepackage{listing}
+\usepackage{minted}
 \usepackage{xcolor}
 \usepackage{hyperref}
 \definecolor{medium}{RGB}{0,171,108}
@@ -21,15 +23,40 @@
 \section{Notes}
  \begin{itemize}
     \item By default all rust crates link to standard library, which depends on the operating system for features such as \
-    threads, scheduling, file, or networking. It also include \hyperlink{ref:libc}{libc} library. 
+    threads, scheduling, file, or networking. It also includes \hyperlink{ref:libc}{libc} library. 
     \item We can disable inclusion of standard library in rust through the \hyperlink{ref:attribute}{no\_std} attribute.
     \item Cargo.toml file in a rust project contains project configurations such as dependencies, author, version etc...
-    \item Panic handler function is part of the standard library and it defines the function that the compiler should invoke when \hyperlink{ref:panic}{panic} occurs. Panic handler is a divergent function.
+    \item Panic handler function is part of the standard library and it defines the function that the compiler should invoke when the \hyperlink{ref:panic}{panic} occurs. Panic handler is a divergent function.
     \item Rust has a special syntax for \hyperlink{ref:diverging-function}{diverging functions} which are functions that do not return;
     \item \hyperlink{ref:language-item}{Language items} are special functions and types that are internally required by compiler.
     \item When you run a rust application first thing that gets executed is not your main function, it is a function that named start.
     The reason for that because \hyperlink{ref:runtime-environment}{runtime environment} needs be set up and exists before your main application. This environment creates the stack places the right arguments 
     on to the register.
+    \item When you turn on your computer it first executes a firmware that reside in your motherboard. This firmware is called \hyperlink{ref:bootloader}{bootloader}.
+    \item Bootloader firmware in your motherboard is the one who loads your operating system.
+    \item To be able to use inline assembly language you can use \hyperlink{ref:asm}{asm} feature from rust nightly version.
+    \item With rust we can target different platforms or we can specify the target platform for our application with a \hyperlink{ref:target-platform}{JSON file}.
+    Most fields in the JSON file are required by LLVM.
+    \item Some of the built in libraries in rust such as \hyperlink{ref:core-builtins}{core, and compiler builtins} are compiled for known host triplets and we sometimes need to cross compile it to work with other targets, to do that we\
+    can use \hyperlink{ref:cargo-xbuild}{cargo-xbuild!}
+    \item We can specify our target platform on \hyperlink{ref:cargo-config}{/.cargo/config} file without having to pass \verb|--target| argument every time we build our application.
+    \begin{listing}[h]
+        \begin{minted}{JSON}
+           {
+                "llvm-target": "x86_64-unknown-linux-gnu",
+                "data-layout": "e-m:e-i64:64-f80:128-n8:16:32:64-S128",
+                "arch": "x86_64",
+                "target-endian": "little",
+                "target-pointer-width": "64",
+                "target-c-int-width": "32",
+                "os": "linux",
+                "executables": true,
+                "linker-flavor": "gcc",
+                "pre-link-args": ["-m64"],
+                "morestack": false
+            } 
+        \end{minted}
+    \end{listing} 
  \end{itemize}
  \section{References}
  \begin{itemize}
@@ -66,6 +93,38 @@
     \item \hypertarget{ref:non}{\textbf{\color{medium}{Cross Compiler}}}
     \begin{itemize}
         \item \url{https://en.wikipedia.org/wiki/Cross_compiler}
+    \end{itemize}
+    \item \hypertarget{ref:bootloader}{\textbf{\color{medium}{Bootloader}}}
+    \begin{itemize}
+       \item \url{https://wiki.osdev.org/Bootloader} 
+       \item \url{https://en.wikipedia.org/wiki/BIOS}
+       \item \url{https://en.wikipedia.org/wiki/Unified_Extensible_Firmware_Interface}
+       \item \url{https://en.wikipedia.org/wiki/GNU_GRUB}
+    \end{itemize}
+    \item \hypertarget{ref:asm}{\textbf{\color{medium}{ASM}}}
+    \begin{itemize}
+        \item \url{https://doc.rust-lang.org/nightly/unstable-book/language-features/asm.html}
+    \end{itemize}
+    \item \hypertarget{ref:target-platform}{\textbf{\color{medium}{Specification of Target Platform}}}
+    \begin{itemize}
+        \item \url{https://llvm.org/docs/LangRef.html#data-layout}
+        \item \url{https://en.wikipedia.org/wiki/Linker_(computing)}
+        \item \url{https://lld.llvm.org/}
+        \item \url{https://os.phil-opp.com/red-zone/}
+        \item \url{https://en.wikipedia.org/wiki/SIMD}
+        \item \url{https://os.phil-opp.com/disable-simd/}
+    \end{itemize}
+    \item \hypertarget{ref:cargo-xbuild}{\textbf{\color{medium}{Core and Compiler Builtins}}}
+    \begin{itemize}
+        \item \url{https://doc.rust-lang.org/nightly/core/index.html}
+    \end{itemize}
+    \item \hypertarget{ref:cargo-xbuild}{\textbf{\color{medium}{Cargo XBuild}}}
+    \begin{itemize}
+        \item \url{https://github.com/rust-osdev/cargo-xbuild}
+    \end{itemize}
+    \item \hypertarget{ref:cargo-config}{\textbf{\color{medium}{Cargo Config}}}
+    \begin{itemize}
+        \item \url{https://doc.rust-lang.org/cargo/reference/config.html}
     \end{itemize}
  \end{itemize}
 \end{document}
