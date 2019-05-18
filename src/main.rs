@@ -2,7 +2,9 @@
 #![no_main]
 #![feature(asm)]
 
+mod vga_buffer;
 use core::panic::PanicInfo;
+use crate::vga_buffer::print_something;
 
 #[panic_handler]
 fn panic(_info : &PanicInfo) -> ! {
@@ -11,5 +13,6 @@ fn panic(_info : &PanicInfo) -> ! {
 
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
+    print_something();
     loop {}
 }
