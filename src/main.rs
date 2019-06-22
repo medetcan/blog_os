@@ -4,15 +4,16 @@
 
 mod vga_buffer;
 use core::panic::PanicInfo;
-use crate::vga_buffer::print_something;
 
 #[panic_handler]
 fn panic(_info : &PanicInfo) -> ! {
+    println!("{}", _info);
     loop {}
+
 }
 
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
-    print_something();
+    print!("Hello World\n");
     loop {}
 }
